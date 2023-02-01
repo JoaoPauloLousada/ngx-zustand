@@ -1,2 +1,1 @@
-export * from './lib/core.module';
-export * from './lib/example.service';
+export * from './lib/zustand-base.service';

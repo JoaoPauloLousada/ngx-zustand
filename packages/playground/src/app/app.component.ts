@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ExampleService } from 'ngx-zustand';
+import { ExampleService } from './example.service';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +9,14 @@ import { ExampleService } from 'ngx-zustand';
 export class AppComponent implements OnInit {
   title = 'playground';
   private ex = inject(ExampleService);
+  store$ = this.ex.store$;
+  setFoo = this.ex.getState().setFoo;
 
   ngOnInit(): void {
-    // eslint-disable-next-line no-constant-condition
-    if (false) console.log('ex', this.ex);
+    this.store$.subscribe((state) => console.log({ state }));
+  }
+
+  update() {
+    this.setFoo('updated value');
   }
 }
