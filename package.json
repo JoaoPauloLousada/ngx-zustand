@@ -4,6 +4,11 @@
   "license": "MIT",
   "scripts": {},
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JoaoPauloLousada/ngx-zustand"
+  },
+  "homepage": "https://github.com/JoaoPauloLousada/ngx-zustand",
   "devDependencies": {
     "@angular-devkit/build-angular": "~15.1.0",
     "@angular-eslint/eslint-plugin": "~15.0.0",
