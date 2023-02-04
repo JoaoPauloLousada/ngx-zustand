@@ -64,6 +64,6 @@ export class CounterService extends ZustandBaseService<CounterState> {
 })
 export class CounterPageComponent {
   private counterService = inject(CounterService);
-  store$ = this.counterService.store$;
+  store$ = this.counterService.useStore();
 }
 ```
