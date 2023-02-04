@@ -22,5 +22,5 @@ import { CounterService } from '../counter.service';
 })
 export class CounterPageComponent {
   private counterService = inject(CounterService);
-  store$ = this.counterService.store$;
+  store$ = this.counterService.useStore();
 }

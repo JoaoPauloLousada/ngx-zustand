@@ -1,22 +1,14 @@
-import { BehaviorSubject, Observable } from 'rxjs';
-import {
-  createStore,
-  StateCreator as _StateCreator,
-  StoreApi,
-} from 'zustand/vanilla';
+import { Observable } from 'rxjs';
+import { createStore, StateCreator, StoreApi } from 'zustand/vanilla';
+import { useStore } from './use-store';
 
-export type StateCreator<T> = _StateCreator<T>;
+export { StateCreator } from 'zustand/vanilla';
 
 export abstract class ZustandBaseService<T> {
-  private store: StoreApi<T>;
-  private storeSubject: BehaviorSubject<T>;
-  store$: Observable<T>;
+  store: StoreApi<T>;
 
   constructor() {
     this.store = this.createStore();
-    this.storeSubject = new BehaviorSubject<T>(this.store.getState());
-    this.store$ = this.storeSubject.asObservable();
-    this.store.subscribe((s) => this.storeSubject.next(s));
   }
 
   abstract initStore(): StateCreator<T>;
@@ -31,5 +23,13 @@ export abstract class ZustandBaseService<T> {
 
   setState(payload: Partial<T>) {
     this.store.setState(payload);
+  }
+
+  useStore(): Observable<T>;
+
+  useStore<S>(selector: Parameters<typeof useStore<T, S>>[1]): Observable<S>;
+
+  useStore<S>(selector?: Parameters<typeof useStore<T, S>>[1]) {
+    return selector ? useStore(this.store, selector) : useStore(this.store);
   }
 }
