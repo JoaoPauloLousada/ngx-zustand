@@ -1,11 +1,10 @@
 import { Observable } from 'rxjs';
 import { createStore, StateCreator, StoreApi } from 'zustand/vanilla';
+export { StateCreator } from 'zustand/vanilla';
 import { useStore } from './use-store';
 
-export { StateCreator } from 'zustand/vanilla';
-
 export abstract class ZustandBaseService<T> {
-  store: StoreApi<T>;
+  private store: StoreApi<T>;
 
   constructor() {
     this.store = this.createStore();

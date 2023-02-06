@@ -32,6 +32,9 @@
         "ci": {
           "ci": true,
           "codeCoverage": true
+        },
+        "watch": {
+          "watch": true
         }
       }
     },
