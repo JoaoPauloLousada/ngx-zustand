@@ -7,14 +7,10 @@ export abstract class ZustandBaseService<T> {
   private store: StoreApi<T>;
 
   constructor() {
-    this.store = this.createStore();
+    this.store = createStore(this.initStore() as StateCreator<T>);
   }
 
-  abstract initStore(): StateCreator<T>;
-
-  createStore() {
-    return createStore(this.initStore());
-  }
+  abstract initStore(): unknown;
 
   getState() {
     return this.store.getState();
