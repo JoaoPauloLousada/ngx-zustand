@@ -1,23 +1,35 @@
-import { Injectable } from '@angular/core';
-import { StateCreator, ZustandBaseService } from 'ngx-zustand';
-
+import { TodoHttp } from './todo.http.service';
+import { inject, Injectable } from '@angular/core';
+import { devtools, createJSONStorage, persist } from 'zustand/middleware';
+import { ZustandBaseService } from 'ngx-zustand';
+interface Todo {
+  userId: number;
+  id: number;
+  title: string;
+  completed: boolean;
+}
 interface TodoState {
-  foo: string;
-  bar: string;
-  setFoo: (text: string) => void;
-  setBar: (text: string) => void;
+  todos: Todo[];
+  load: () => void;
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoStore extends ZustandBaseService<TodoState> {
-  initStore(): StateCreator<TodoState, [], [], TodoState> {
-    return (set) => ({
-      foo: 'foo',
-      bar: 'bar',
-      setFoo: (text) => set({ foo: text }),
-      setBar: (text) => set({ bar: text }),
-    });
+  private http = inject(TodoHttp);
+
+  initStore() {
+    return persist(
+      devtools<TodoState>((set) => ({
+        todos: [],
+        load: () => {
+          this.http
+            .get<Todo[]>()
+            .subscribe((todos) => set({ todos }, false, 'todos/load'));
+        },
+      })),
+      { name: 'TODO_STORE', storage: createJSONStorage(() => sessionStorage) }
+    );
   }
 }
