@@ -1,8 +1,8 @@
 {
-  "name": "playground",
+  "name": "docs-site",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "sourceRoot": "packages/playground/src",
+  "sourceRoot": "packages/docs-site/src",
   "prefix": "app",
   "targets": {
     "build": {
@@ -11,22 +11,29 @@
         "{options.outputPath}"
       ],
       "options": {
-        "outputPath": "dist/packages/playground",
-        "index": "packages/playground/src/index.html",
-        "main": "packages/playground/src/main.ts",
+        "outputPath": "dist/packages/docs-site",
+        "index": "packages/docs-site/src/index.html",
+        "main": "packages/docs-site/src/main.ts",
         "polyfills": [
           "zone.js"
         ],
-        "tsConfig": "packages/playground/tsconfig.app.json",
+        "tsConfig": "packages/docs-site/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
-          "packages/playground/src/favicon.ico",
-          "packages/playground/src/assets"
+          "packages/docs-site/src/favicon.ico",
+          "packages/docs-site/src/assets"
         ],
         "styles": [
-          "packages/playground/src/styles.scss"
+          "@angular/material/prebuilt-themes/indigo-pink.css",
+          "packages/docs-site/src/styles.scss",
+          "node_modules/prismjs/themes/prism-okaidia.css"
         ],
-        "scripts": []
+        "scripts": [
+          "node_modules/marked/marked.min.js",
+          "node_modules/prismjs/prism.js",
+          "node_modules/prismjs/components/prism-typescript.min.js",
+          "node_modules/prismjs/components/prism-bash.min.js"
+        ]
       },
       "configurations": {
         "production": {
@@ -59,21 +66,21 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "playground:build:production"
+          "browserTarget": "docs-site:build:production"
         },
         "development": {
-          "browserTarget": "playground:build:development"
+          "browserTarget": "docs-site:build:development"
         }
       },
       "defaultConfiguration": "development",
       "options": {
-        "port": 4300
+        "port": 4777
       }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "playground:build"
+        "browserTarget": "docs-site:build"
       }
     },
     "lint": {
@@ -83,8 +90,8 @@
       ],
       "options": {
         "lintFilePatterns": [
-          "packages/playground/**/*.ts",
-          "packages/playground/**/*.html"
+          "packages/docs-site/**/*.ts",
+          "packages/docs-site/**/*.html"
         ]
       }
     }
