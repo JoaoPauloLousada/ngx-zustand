@@ -25,5 +25,5 @@ import { LayoutComponent } from './layout/layout.component';
   styles: [],
 })
 export class AppComponent {
-  title = 'docs-site';
+  title = 'ngx-zustand docs';
 }

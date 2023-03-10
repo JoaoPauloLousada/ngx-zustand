@@ -6,3 +6,29 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+markdown {
+  h1 {
+    @apply font-semibold text-2xl #{!important};
+  }
+
+  h2 {
+    @apply underline;
+  }
+
+  h3 {
+    @apply font-semibold text-lg text-gray-800 mb-0 #{!important};
+  }
+
+  a {
+    @apply font-semibold text-fuchsia-500;
+  }
+
+  p {
+    @apply text-gray-600 text-base;
+  }
+
+  .language-ts {
+    @apply mb-8 #{!important};
+  }
+}
