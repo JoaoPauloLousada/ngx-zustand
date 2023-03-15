@@ -2,7 +2,9 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   inject,
+  Output,
   Pipe,
   PipeTransform,
 } from '@angular/core';
@@ -31,6 +33,7 @@ export class IsActivatedPipe implements PipeTransform {
       [href]="item.href"
       *ngFor="let item of list; trackBy: trackList"
       [activated]="fragment$ | async | isActivated : item.href"
+      (click)="this.itemClicked.emit(true)"
     >
       {{ item.title }}
     </a>
@@ -39,6 +42,7 @@ export class IsActivatedPipe implements PipeTransform {
 export class NavListComponent {
   private route = inject(ActivatedRoute);
   fragment$ = this.route.fragment;
+  @Output() itemClicked = new EventEmitter<boolean>();
 
   list = [
     {
